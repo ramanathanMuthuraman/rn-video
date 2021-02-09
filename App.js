@@ -16,10 +16,15 @@ import YoutubePlayerIframe from './YoutubePlayerIframe';
 const App = () => {
   return (
     <SafeAreaView>
-      <ReactNativeVideo />
-      {/* <ReactNativeVideoWithControls />
-      <YoutubePlayer />
-      <YoutubePlayerIframe /> */}
+      {/* <ReactNativeVideo /> */}
+      {/* <ReactNativeVideoWithControls /> */}
+      {/* <YoutubePlayer /> */}
+      <YoutubePlayerIframe
+        youtubePlayerProps={{
+          videoId: 'wIdU0eYT8p0',
+          height: 300,
+        }}
+      />
     </SafeAreaView>
   );
 };

@@ -2,38 +2,33 @@
 // https://aboutreact.com/youtube-video-integration-in-react-native/
 
 // Import React
-import React, {useState, useCallback} from 'react';
+import React, {useState, useCallback, useEffect} from 'react';
 // Import required components
-import {
-  SafeAreaView,
-  StyleSheet,
-  View,
-  Text,
-  ScrollView,
-  TouchableOpacity,
-  PixelRatio,
-} from 'react-native';
+import {View} from 'react-native';
+import axios from 'axios';
 
 // Import Youtube Players
 import YoutubePlayer from 'react-native-youtube-iframe';
 
-const YoutubePlayerIframe = () => {
-  const [playing, setPlaying] = useState(false);
-
-  const onStateChange = useCallback((state) => {
-    if (state === 'ended') {
-      setPlaying(false);
-    }
+const YoutubePlayerIframe = (props) => {
+  const [isYoutubeAccessible, setIsYoutubeAccessible] = useState(true);
+  const {youtubePlayerProps} = props;
+  useEffect(() => {
+    axios
+      .get('https://youtube.com/favicon.ico')
+      .then(() => {
+        console.log('success');
+        setIsYoutubeAccessible(true);
+      })
+      .catch(() => {
+        console.log('error');
+        setIsYoutubeAccessible(false);
+      });
   }, []);
 
   return (
-    <View style={{flex: 1, height: 225}}>
-      <YoutubePlayer
-        height={300}
-        play={playing}
-        videoId={'XsI9F3n-Bog'}
-        onChangeState={onStateChange}
-      />
+    <View>
+      {isYoutubeAccessible && <YoutubePlayer {...youtubePlayerProps} />}
     </View>
   );
 };
