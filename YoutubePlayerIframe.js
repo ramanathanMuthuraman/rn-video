@@ -13,6 +13,7 @@ import YoutubePlayer from 'react-native-youtube-iframe';
 const YoutubePlayerIframe = (props) => {
   const [isYoutubeAccessible, setIsYoutubeAccessible] = useState(true);
   const {youtubePlayerProps} = props;
+  const {height = 300} = youtubePlayerProps;
   useEffect(() => {
     axios
       .get('https://youtube.com/favicon.ico')
@@ -27,7 +28,7 @@ const YoutubePlayerIframe = (props) => {
   }, []);
 
   return (
-    <View>
+    <View style={{height}}>
       {isYoutubeAccessible && <YoutubePlayer {...youtubePlayerProps} />}
     </View>
   );
